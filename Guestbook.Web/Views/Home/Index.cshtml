@@ -30,26 +30,31 @@
                        class="btn btn-outline-dark">
                         Show Replies
                     </a>
-                    <a asp-controller="Messages"
-                       asp-action="Edit"
-                       asp-route-MessageId="@message.MessageId"
-                       class="btn btn-primary">
-                        Edit
-                    </a>
-                    <a asp-controller="Messages"
-                       asp-action="Delete"
-                       asp-route-MessageId="@message.MessageId"
-                       class="btn btn-danger">
-                        Delete
-                    </a>
-               </div>
+                    @if (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value == message.User.UserId.ToString())
+                    {
+                        <a asp-controller="Messages"
+                           asp-action="Edit"
+                           asp-route-MessageId="@message.MessageId"
+                           asp-route-UserId="@message.User.UserId"
+                           class="btn btn-primary">
+                            Edit
+                        </a>
+                        <a asp-controller="Messages"
+                           asp-action="Delete"
+                           asp-route-MessageId="@message.MessageId"
+                           asp-route-UserId="@message.User.UserId"
+                           class="btn btn-danger">
+                            Delete
+                        </a>
+                    }
+                </div>
             </div>
         }
     </div>
     <div class="col-5">
         @if (User.Identity.IsAuthenticated)
         {
-            <form method="post" class="sticky-top" style="padding-top: 20px" asp-controller="Messages" asp-action="Add">
+            <form method="post" class="sticky-top" style="padding-top: 20px" asp-controller="Messages" asp-action="Create">
                 <fieldset>
                     <div class="form-group">
                         <textarea name="Content" rows="5" placeholder="Write a message..." class="form-control"></textarea>

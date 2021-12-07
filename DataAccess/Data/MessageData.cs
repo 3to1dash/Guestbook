@@ -25,8 +25,15 @@ namespace DataAccess.Data
 
         public async Task<MessageModel> GetMessage(int id)
         {
-            var results = await _db.LoadMessage<dynamic>(
-                "dbo.spMessage_Get", new { Id = id });
+            var results = await _db.LoadMessages<dynamic>(
+                "dbo.spMessage_GetWithUser", new { Id = id });
+            return results.FirstOrDefault();
+        }
+
+        public async Task<MessageModel> GetMessageWithUser(int id)
+        {
+            var results = await _db.LoadMessages<dynamic>(
+                "dbo.spMessage_GetWithUser", new { Id = id });
             return results.FirstOrDefault();
         }
 
@@ -39,6 +46,6 @@ namespace DataAccess.Data
                 new { Id = message.MessageId, message.Content });
 
         public Task DeleteMessage(int id) =>
-            _db.DeleteData("dbo.Message_Delete", new { Id = id });
+            _db.DeleteData("spMessage_Delete", new { Id = id });
     }
 }

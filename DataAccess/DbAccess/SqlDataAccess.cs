@@ -56,6 +56,7 @@ namespace DataAccess.DbAccess
                     msg.User = usr;
                     return msg;
                 },
+                parameters,
                 splitOn: "UserId",
                 commandType: CommandType.StoredProcedure);
         }
@@ -74,6 +75,7 @@ namespace DataAccess.DbAccess
                     rply.User = usr;
                     return rply;
                 },
+                parameters,
                 splitOn: "UserId",
                 commandType: CommandType.StoredProcedure);
         }

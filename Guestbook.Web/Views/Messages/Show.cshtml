@@ -1,0 +1,56 @@
+﻿@model dynamic
+
+<div>
+    <h1 class="font-weight-normal">Author: @Model.Message.User.FirstName @Model.Message.User.LastName</h1>
+    <address class="mb-2">
+        Email Address: <a href="mailto:@Model.Message.User.Email">
+            <span class="font-weight-bold">@Model.Message.User.Email</span>
+        </a>
+    </address>
+</div>
+
+<div class="pt-4">
+    <blockquote class="blockquote">
+        <p class="mb-2 lead" style="font-size: 2rem">@Model.Message.Content</p>
+        <footer class="blockquote-footer">Message created at <cite>@Model.Message.CreatedAt.ToString("MMMM dd, yyyy")</cite></footer>
+    </blockquote>
+</div>
+
+<h2 class="pb-2 pt-3">Replies</h2>
+<div class="pb-3">
+    <a asp-controller="Replies"
+       asp-action="Create"
+       asp-route-MessageId="@Model.Message.MessageId"
+       class="btn btn-primary">Add a reply</a>
+</div>
+@if (Model.Replies.Count == 0)
+{
+    <p>There are not replies under this message.</p>
+}
+else
+{
+    foreach (var reply in Model.Replies)
+    {
+        <div class="card mb-1 border-bottom-0 border-right-0 border-left-0">
+            <div class="card-body">
+                <h5 class="card-title">@reply.User.FirstName @reply.User.LastName</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    @reply.User.Email
+                </h6>
+                <p class="card-text" style="font-size: 1.5em">@reply.Content</p>
+                <p class="card-text"><small class="text-muted">@reply.CreatedAt.ToString("MMMM dd, yyyy")</small></p>
+                @if (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value == reply.User.UserId.ToString())
+                {
+                    <a asp-controller="Replies"
+                       asp-action="Delete"
+                       asp-route-ReplyId="@reply.ReplyId"
+                       asp-route-UserId="@reply.User.UserId"
+                       asp-route-MessageId="@Model.Message.MessageId"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+                }
+            </div>
+        </div>
+    }
+}

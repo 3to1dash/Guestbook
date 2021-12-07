@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Reply]
 (
 	[ReplyId] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Content] NVARCHAR(50) NOT NULL, 
+    [Content] TEXT NOT NULL, 
     [MessageId] INT NOT NULL, 
     [UserId] INT NOT NULL, 
     [CreatedAt] DATETIME2 CONSTRAINT [DF_Reply_CreatedAt] DEFAULT (sysdatetime()) NOT NULL, 

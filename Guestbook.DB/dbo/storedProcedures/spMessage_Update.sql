@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spMessage_Update]
 	@Id int,
-	@Content nvarchar(50)
+	@Content text
 AS
 begin
 	update dbo.[Message]

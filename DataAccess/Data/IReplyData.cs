@@ -8,6 +8,6 @@ namespace DataAccess.Data
     {
         Task DeleteReply(int id);
         Task<IEnumerable<ReplyModel>> GetReplies(int id);
-        Task InsertReply(ReplyModel reply, int userId);
+        Task InsertReply(string content, int messageId, int userId);
     }
 }
