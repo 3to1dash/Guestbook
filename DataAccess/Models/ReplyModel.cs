@@ -6,7 +6,7 @@ namespace DataAccess.Models
 {
     public class ReplyModel
     {
-        public int Id { get; set; }
+        public int ReplyId { get; set; }
         public String Content { get; set; }
         public DateTime CreatedAt { get; set; }
         public UserModel User { get; set; }

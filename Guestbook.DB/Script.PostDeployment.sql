@@ -1,9 +1,9 @@
 ﻿if not exists (select 1 from dbo.[User])
 begin
-	insert into dbo.[User] (FirstName, LastName, Email)
-	values ('Mahmoud', 'Ahmed', 'foo@bar.com'),
-	('Amr', 'Ahmed', 'bez@bar.com'),
-	('Dalia', 'Ahmed', 'dha@bar.com')
+	insert into dbo.[User] (FirstName, LastName, Email, PasswordHash)
+	values ('Mahmoud', 'Ahmed', 'foo@bar.com', ''),
+	('Amr', 'Ahmed', 'bez@bar.com', ''),
+	('Dalia', 'Ahmed', 'dha@bar.com', '')
 end
 
 if not exists (select 1 from dbo.[Message])

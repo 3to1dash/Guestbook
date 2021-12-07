@@ -4,5 +4,5 @@ AS
 begin
 	delete
 	from dbo.[Reply]
-	where Id = @Id;
+	where ReplyId = @Id;
 end

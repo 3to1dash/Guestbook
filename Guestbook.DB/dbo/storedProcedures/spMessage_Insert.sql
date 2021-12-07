@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spMessage_Insert]
-	@Content nvarchar(50),
+	@Content text,
 	@UserId int
 AS
 begin

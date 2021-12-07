@@ -2,7 +2,7 @@
 	@Email nvarchar(50)
 AS
 begin
-	select FirstName, LastName, Email
+	select UserId, FirstName, LastName, Email, PasswordHash
 	from dbo.[User]
 	where Email = @Email;
 end

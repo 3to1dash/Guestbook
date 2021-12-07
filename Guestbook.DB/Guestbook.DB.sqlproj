@@ -65,7 +65,7 @@
     <Build Include="dbo\Tables\Message.sql" />
     <Build Include="dbo\Tables\Reply.sql" />
     <Build Include="dbo\storedProcedures\spMessage_GetAll.sql" />
-    <Build Include="dbo\storedProcedures\spMessage_Get.sql" />
+    <Build Include="dbo\storedProcedures\spMessage_GetWithUser.sql" />
     <Build Include="dbo\storedProcedures\spReply_GetAllByMessageId.sql" />
     <Build Include="dbo\storedProcedures\spMessage_Delete.sql" />
     <Build Include="dbo\storedProcedures\spReply_Delete.sql" />
@@ -74,6 +74,8 @@
     <Build Include="dbo\storedProcedures\spReply_Insert.sql" />
     <Build Include="dbo\storedProcedures\spMessage_Update.sql" />
     <Build Include="dbo\storedProcedures\spUser_GetByEmail.sql" />
+    <Build Include="dbo\storedProcedures\spMessage_GetTop15.sql" />
+    <Build Include="dbo\storedProcedures\spMessage_Get.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

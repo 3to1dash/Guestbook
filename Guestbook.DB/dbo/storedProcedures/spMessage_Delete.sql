@@ -4,5 +4,5 @@ AS
 begin
 	delete
 	from dbo.[Message]
-	where Id = @Id;
+	where MessageId = @Id;
 end

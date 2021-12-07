@@ -5,5 +5,5 @@ AS
 begin
 	update dbo.[Message]
 	set Content = @Content
-	where Id = @Id;
+	where MessageId = @Id;
 end
