@@ -73,6 +73,7 @@
     <Build Include="dbo\storedProcedures\spMessage_Insert.sql" />
     <Build Include="dbo\storedProcedures\spReply_Insert.sql" />
     <Build Include="dbo\storedProcedures\spMessage_Update.sql" />
+    <Build Include="dbo\storedProcedures\spUser_GetByEmail.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
