@@ -1,3 +1,5 @@
+using DataAccess.Data;
+using DataAccess.DbAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,8 @@ namespace Guestbook.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
+            services.AddSingleton<IUserData, UserData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
