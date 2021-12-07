@@ -1,25 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using DataAccess.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Guestbook.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IMessageData _messageData;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IMessageData messageData)
         {
-            _logger = logger;
+            _messageData = messageData;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var messages = await _messageData.GetTop15Messages();
+            return View(messages);
         }
 
         public IActionResult Privacy()
