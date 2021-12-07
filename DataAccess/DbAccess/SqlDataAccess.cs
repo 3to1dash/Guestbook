@@ -29,6 +29,19 @@ namespace DataAccess.DbAccess
                 commandType: CommandType.StoredProcedure);
         }
 
+        public async Task<IEnumerable<MessageModel>> LoadMessage<U>(
+            string storedProcedure,
+            U parameters,
+            string connectionId = "Default")
+        {
+            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
+
+            return await connection.QueryAsync<MessageModel>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+        }
+
         public async Task<IEnumerable<MessageModel>> LoadMessages<U>(
             string storedProcedure,
             U parameters,
@@ -43,7 +56,7 @@ namespace DataAccess.DbAccess
                     msg.User = usr;
                     return msg;
                 },
-                parameters,
+                splitOn: "UserId",
                 commandType: CommandType.StoredProcedure);
         }
 
@@ -61,18 +74,29 @@ namespace DataAccess.DbAccess
                     rply.User = usr;
                     return rply;
                 },
-                parameters,
+                splitOn: "UserId",
                 commandType: CommandType.StoredProcedure);
         }
 
-        public async Task SaveData<T>(
+        public async Task<int> SaveData<T>(
             string storedProcedure,
             T parameters,
             string connectionId = "Default")
         {
             using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
 
-            await connection.ExecuteAsync(storedProcedure, parameters,
+            return await connection.ExecuteAsync(storedProcedure, parameters,
+                commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<int> DeleteData<T>(
+            string storedProcedure,
+            T parameters,
+            string connectionId = "Default")
+        {
+            using IDbConnection connection = new SqlConnection(_config.GetConnectionString(connectionId));
+
+            return await connection.ExecuteAsync(storedProcedure, parameters,
                 commandType: CommandType.StoredProcedure);
         }
     }

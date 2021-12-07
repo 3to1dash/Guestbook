@@ -5,6 +5,7 @@ namespace Guestbook.Web.Models
     public class LoginModel
     {
         [Required]
+        [Display(Name = "Email Address")]
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

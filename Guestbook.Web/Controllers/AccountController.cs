@@ -1,4 +1,5 @@
 ﻿using DataAccess.Data;
+using DataAccess.Models;
 using Guestbook.Web.ControllersHelpers;
 using Guestbook.Web.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -29,18 +30,23 @@ namespace Guestbook.Web.Controllers
         }
 
         [AllowAnonymous]
+        public IActionResult Register(string returnUrl = "/")
+        {
+            return View(new RegisterModel { ReturnUrl = returnUrl });
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel input)
         {
             var user = _userData.GetUser(input.Email).Result;
             if (user == null) return Unauthorized();
-            var hashedPass = Convert.FromBase64String(user.PasswordHash);
-            if (!PasswordHelpers.VerifyPassword(hashedPass, input.Password))
+            if (!PasswordHelpers.Verify(input.Password, user.PasswordHash))
                 return Unauthorized();
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                 new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Email, user.Email)
             };
@@ -53,6 +59,26 @@ namespace Guestbook.Web.Controllers
                 new AuthenticationProperties { IsPersistent = input.RememberLogin });
 
             return LocalRedirect(input.ReturnUrl);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterModel input)
+        {
+            var hashedPass = PasswordHelpers.Hash(input.Password);
+            var user = new UserModel
+            { 
+                FirstName = input.FirstName,
+                LastName = input.LastName,
+                Email = input.Email,
+                PasswordHash = hashedPass
+            };
+
+            var success = await _userData.InsertUser(user);
+            if (success != 0)
+                return LocalRedirect("/Account/Login");
+
+            return LocalRedirect("/Account/Register");
         }
 
         public async Task<IActionResult> Logout()

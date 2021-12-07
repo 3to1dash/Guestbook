@@ -1,5 +1,6 @@
 using DataAccess.Data;
 using DataAccess.DbAccess;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,10 @@ namespace Guestbook.Web
             services.AddControllersWithViews();
             services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
             services.AddSingleton<IUserData, UserData>();
+            services.AddSingleton<IMessageData, MessageData>();
+            services.AddSingleton<IReplyData, ReplyData>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +53,7 @@ namespace Guestbook.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

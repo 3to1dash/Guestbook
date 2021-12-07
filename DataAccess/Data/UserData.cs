@@ -17,9 +17,9 @@ namespace DataAccess.Data
             _db = db;
         }
 
-        public Task InsertUser(UserModel user) =>
+        public Task<int> InsertUser(UserModel user) =>
             _db.SaveData("spUser_Insert",
-                new { user.FirstName, user.LastName, user.Email });
+                 new { user.FirstName, user.LastName, user.Email, user.PasswordHash });
 
         public async Task<UserModel?> GetUser(string email)
         {
