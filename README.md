@@ -12,3 +12,18 @@ A guestbook system that logs users' entries.
 * Finnaly go and run the app by typing
 
       $ dotnet run --project Guestbook.Web
+
+### Done
+* Authentification
+* Authorization
+* Registration
+* Writing Messages
+* Deleting Messages
+* Editing Messages
+* Writing Replies to Messages
+* Deleting Replies
+### Todo
+* Ability to change own avatar and cover
+* Select picture from local files
+* Add two factor authentification
+* Password recovery
