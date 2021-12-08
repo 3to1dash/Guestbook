@@ -10,45 +10,53 @@
         </div>
         <br />
 
-        @foreach (var message in Model)
+        @if (!Model.Any())
         {
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        @message.User.FirstName @message.User.LastName -
-                        <span class="small">
-                            <time datetime="@message.CreatedAt">@message.CreatedAt.ToString("MMMM dd, yyyy")</time>
-                        </span>
-                    </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                        @message.User.Email
-                    </h6>
-                    <p class="card-text">@message.Content</p>
-                    <a asp-controller="Messages"
-                       asp-action="Show"
-                       asp-route-MessageId="@message.MessageId"
-                       class="btn btn-outline-dark">
-                        Show Replies
-                    </a>
-                    @if (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value == message.User.UserId.ToString())
-                    {
+            <p>There are no messages.</p>
+        }
+        else
+        {
+
+            @foreach (var message in Model)
+            {
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @message.User.FirstName @message.User.LastName -
+                            <span class="small">
+                                <time datetime="@message.CreatedAt">@message.CreatedAt.ToString("MMMM dd, yyyy")</time>
+                            </span>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            @message.User.Email
+                        </h6>
+                        <p class="card-text">@message.Content</p>
                         <a asp-controller="Messages"
-                           asp-action="Edit"
+                           asp-action="Show"
                            asp-route-MessageId="@message.MessageId"
-                           asp-route-UserId="@message.User.UserId"
-                           class="btn btn-primary">
-                            Edit
+                           class="btn btn-outline-dark">
+                            Show Replies
                         </a>
-                        <a asp-controller="Messages"
-                           asp-action="Delete"
-                           asp-route-MessageId="@message.MessageId"
-                           asp-route-UserId="@message.User.UserId"
-                           class="btn btn-danger">
-                            Delete
-                        </a>
-                    }
+                        @if (User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value == message.User.UserId.ToString())
+                        {
+                            <a asp-controller="Messages"
+                               asp-action="Edit"
+                               asp-route-MessageId="@message.MessageId"
+                               asp-route-UserId="@message.User.UserId"
+                               class="btn btn-primary">
+                                Edit
+                            </a>
+                            <a asp-controller="Messages"
+                               asp-action="Delete"
+                               asp-route-MessageId="@message.MessageId"
+                               asp-route-UserId="@message.User.UserId"
+                               class="btn btn-danger">
+                                Delete
+                            </a>
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         }
     </div>
     <div class="col-5">
