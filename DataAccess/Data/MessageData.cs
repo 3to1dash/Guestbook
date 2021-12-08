@@ -18,22 +18,22 @@ namespace DataAccess.Data
         }
 
         public Task<IEnumerable<MessageModel>> GetMessages() =>
-            _db.LoadMessages<dynamic>("dbo.spMessage_GetAll", new { });
+            _db.LoadMessages<dynamic>("spMessage_GetAll", new { });
 
         public Task<IEnumerable<MessageModel>> GetTop15Messages() =>
-            _db.LoadMessages<dynamic>("dbo.spMessage_GetTop15", new { });
+            _db.LoadMessages<dynamic>("spMessage_GetTop15", new { });
 
         public async Task<MessageModel> GetMessage(int id)
         {
             var results = await _db.LoadMessages<dynamic>(
-                "dbo.spMessage_GetWithUser", new { Id = id });
+                "spMessage_GetWithUser", new { Id = id });
             return results.FirstOrDefault();
         }
 
         public async Task<MessageModel> GetMessageWithUser(int id)
         {
             var results = await _db.LoadMessages<dynamic>(
-                "dbo.spMessage_GetWithUser", new { Id = id });
+                "spMessage_GetWithUser", new { Id = id });
             return results.FirstOrDefault();
         }
 

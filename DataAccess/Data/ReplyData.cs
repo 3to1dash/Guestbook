@@ -17,13 +17,13 @@ namespace DataAccess.Data
         }
 
         public Task<IEnumerable<ReplyModel>> GetReplies(int id) =>
-            _db.LoadReplies<dynamic>("dbo.spReply_GetAllByMessageId", new { MessageId = id });
+            _db.LoadReplies<dynamic>("spReply_GetAllByMessageId", new { MessageId = id });
 
         public Task InsertReply(string content, int messageId, int userId) =>
             _db.SaveData("spReply_Insert",
                 new { Content = content, MessageId = messageId, UserId = userId });
 
         public Task DeleteReply(int id) =>
-            _db.SaveData("dbo.spReply_Delete", new { Id = id });
+            _db.SaveData("spReply_Delete", new { Id = id });
     }
 }
